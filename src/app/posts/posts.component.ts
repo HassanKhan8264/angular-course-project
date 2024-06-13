@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { Post } from './Post.model';
 @Component({
@@ -9,16 +9,16 @@ import { Post } from './Post.model';
   styleUrls: ['./posts.component.css'],
 })
 export class PostsComponent implements OnInit {
-  postForm: FormGroup;
+  postForm: UntypedFormGroup;
   posts: Post[];
   error = null;
 
   constructor(private postService: PostService) {}
 
   ngOnInit(): void {
-    this.postForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      content: new FormControl(null, Validators.required),
+    this.postForm = new UntypedFormGroup({
+      title: new UntypedFormControl(null, Validators.required),
+      content: new UntypedFormControl(null, Validators.required),
     });
     this.getPosts();
   }

@@ -2,7 +2,7 @@ import { PlaceholderDirective } from './../shared/Placeholder.directive';
 import { AlertModalComponent } from './../shared/alert-modal/alert-modal.component';
 import { AuthResponseData } from './../services/auth.service';
 import { Observable, Subscription } from 'rxjs';
-import { FormControl, NgForm } from '@angular/forms';
+import { UntypedFormControl, NgForm } from '@angular/forms';
 import { Component, ComponentFactoryResolver, ViewChild, OnDestroy } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
@@ -79,7 +79,7 @@ export class AuthComponent implements OnDestroy {
     }
   }
 
-  getPasswordErrors(password: FormControl) {
+  getPasswordErrors(password: UntypedFormControl) {
     if (password.errors.required) {
       return 'Password Required';
     }

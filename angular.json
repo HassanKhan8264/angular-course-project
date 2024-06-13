@@ -112,7 +112,6 @@
       }
     }
   },
-  "defaultProject": "angularrouting",
   "cli": {
     "analytics": false
   }

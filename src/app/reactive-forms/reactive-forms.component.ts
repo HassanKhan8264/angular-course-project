@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,22 +11,22 @@ import { Observable } from 'rxjs';
 export class ReactiveFormsComponent implements OnInit {
   genders = ['male', 'female'];
   restrictedNames = ['Leela'];
-  signUpForm: FormGroup;
+  signUpForm: UntypedFormGroup;
   constructor() { }
 
   get hobbyControls() {
-    return (<FormArray>this.signUpForm.get('hobbies')).controls;
+    return (<UntypedFormArray>this.signUpForm.get('hobbies')).controls;
   }
 
   ngOnInit(): void {
-    this.signUpForm = new FormGroup({
-      'userData': new FormGroup({
-        'username': new FormControl(null, [Validators.required, this.isRestrictedNames.bind(this)]),
-        'email': new FormControl(null, [Validators.required, Validators.email], [this.isRestrictedEmails]),
+    this.signUpForm = new UntypedFormGroup({
+      'userData': new UntypedFormGroup({
+        'username': new UntypedFormControl(null, [Validators.required, this.isRestrictedNames.bind(this)]),
+        'email': new UntypedFormControl(null, [Validators.required, Validators.email], [this.isRestrictedEmails]),
       }),
 
-      'gender': new FormControl('female'),
-      'hobbies': new FormArray([])
+      'gender': new UntypedFormControl('female'),
+      'hobbies': new UntypedFormArray([])
     });
 
     this.signUpForm.statusChanges.subscribe(value => {
@@ -47,14 +47,14 @@ export class ReactiveFormsComponent implements OnInit {
     this.signUpForm.reset();
   }
 
-  isRestrictedNames(control: FormControl): { [s: string]: boolean } {
+  isRestrictedNames(control: UntypedFormControl): { [s: string]: boolean } {
     if (this.restrictedNames.includes(control.value)) {
       return { nameIsRestricted: true };
     }
     return null;
   }
 
-  isRestrictedEmails(control: FormControl): Promise<any> | Observable<any> {
+  isRestrictedEmails(control: UntypedFormControl): Promise<any> | Observable<any> {
     let promise = new Promise((resolve, reject) => {
       setTimeout(() => {
         if (control.value === 'test@test.com') {
@@ -71,8 +71,8 @@ export class ReactiveFormsComponent implements OnInit {
 
 
   onAddHobby() {
-    const control = new FormControl(null, [Validators.required]);
-    (<FormArray>this.signUpForm.get('hobbies')).push(control);
+    const control = new UntypedFormControl(null, [Validators.required]);
+    (<UntypedFormArray>this.signUpForm.get('hobbies')).push(control);
   }
 
 }
